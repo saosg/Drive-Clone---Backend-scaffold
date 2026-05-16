@@ -39,7 +39,7 @@ The backend is a production-lean, scalable TypeScript + Express service providin
 ```mermaid
 flowchart LR
 	User[User / Client]
-	API[Drive Clone API (Express + TypeScript)]
+	API["Drive Clone API (Express + TypeScript)"]
 	Postgres[(Postgres)]
 	MinIO[(MinIO - S3 API)]
 	Redis[(Redis - BullMQ / Metadata)]
