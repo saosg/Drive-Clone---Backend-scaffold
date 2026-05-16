@@ -38,24 +38,24 @@ The backend is a production-lean, scalable TypeScript + Express service providin
 
 ```mermaid
 graph LR
-  User(["User / Client"])
-  API(["Drive Clone API (Express + TypeScript)"])
-  Postgres((Postgres))
-  MinIO((MinIO - S3 API))
-  Redis((Redis - BullMQ / Metadata))
-  Worker(["Background Worker"])
-  Google(["Google OAuth"])
-  GitHub(["GitHub OAuth"])
+  User[User / Client]
+  API[Drive Clone API]
+  Postgres[(Postgres)]
+  MinIO[(MinIO - S3 API)]
+  Redis[(Redis - BullMQ / Metadata)]
+  Worker[Background Worker]
+  Google[Google OAuth]
+  GitHub[GitHub OAuth]
 
-  User -->|HTTP/HTTPS (REST / signed URLs)| API
-  API -->|Prisma ORM| Postgres
-  API -->|S3 (AWS SDK v3)| MinIO
-  API -->|Enqueue jobs (BullMQ)| Redis
-  Worker -->|Consume jobs (BullMQ)| Redis
-  Worker -->|Read/Write objects| MinIO
-  API -->|OAuth flows| Google
-  API -->|OAuth flows| GitHub
-  API -.->|Signed URLs| User
+  User --> API
+  API --> Postgres
+  API --> MinIO
+  API --> Redis
+  Worker --> Redis
+  Worker --> MinIO
+  API --> Google
+  API --> GitHub
+  API -.-> User
 ```
 
 ## Components
