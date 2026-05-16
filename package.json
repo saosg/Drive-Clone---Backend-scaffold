@@ -1,0 +1,71 @@
+{
+  "name": "drive-clone",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "demo:multipart": "node scripts/multipart_demo.js",
+    "demo:e2e": "node scripts/demo_e2e.js",
+    "build": "tsc -p .",
+    "start": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "dotenv": "^16.0.0",
+    "@prisma/client": "^5.0.0",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-github2": "^0.1.12",
+    "@aws-sdk/client-s3": "^3.362.0",
+    "@aws-sdk/s3-request-presigner": "^3.362.0",
+    "uuid": "^9.0.0"
+  },
+  "optionalDependencies": {
+    "axios": "^1.4.0",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.0",
+    "prettier": "^2.8.0",
+    "eslint": "^8.40.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "prisma": "^5.0.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.2",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.0.0",
+    "@types/passport": "^1.0.8",
+    "jest": "^29.6.0",
+    "ts-jest": "^29.0.0",
+    "supertest": "^6.4.0",
+    "@types/jest": "^29.5.0",
+    "@types/supertest": "^2.0.12",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/bcrypt": "^5.0.0"
+  }
+  "lint-staged": {
+    "src/**/*.{ts,js}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add",
+      "jest --findRelatedTests --passWithNoTests --silent"
+    ],
+    "*.{ts,js}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add",
+      "jest --findRelatedTests --passWithNoTests --silent"
+    ]
+  }
+}

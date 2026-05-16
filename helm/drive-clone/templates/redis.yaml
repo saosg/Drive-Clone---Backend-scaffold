@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "drive-clone.fullname" . }}-redis
+spec:
+  ports:
+    - port: 6379
+  selector:
+    app: {{ include "drive-clone.fullname" . }}-redis
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "drive-clone.fullname" . }}-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "drive-clone.fullname" . }}-redis
+  template:
+    metadata:
+      labels:
+        app: {{ include "drive-clone.fullname" . }}-redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7
+          ports:
+            - containerPort: 6379

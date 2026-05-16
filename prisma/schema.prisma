@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  password  String
+  role      Role    @default(USER)
+  createdAt DateTime @default(now())
+  files     File[]
+}
+
+model File {
+  id        String   @id @default(uuid())
+  name      String
+  size      Int?
+  mime      String?
+  bucket    String
+  key       String
+  uploadId  String?
+  parentFolderId String? 
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+  createdAt DateTime @default(now())
+}
+
+model Folder {
+  id        String   @id @default(uuid())
+  name      String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+  parentId  String?  
+  children  Folder[] @relation("FolderChildren")
+  createdAt DateTime @default(now())
+}
+
+model Share {
+  id          Int      @id @default(autoincrement())
+  token       String   @unique
+  file        File     @relation(fields: [fileId], references: [id])
+  fileId      String
+  expiresAt   DateTime?
+  createdBy   User     @relation(fields: [createdById], references: [id])
+  createdById Int
+  createdAt   DateTime @default(now())
+}
+
+model FilePermission {
+  id        Int    @id @default(autoincrement())
+  file      File   @relation(fields: [fileId], references: [id])
+  fileId    String
+  user      User   @relation(fields: [userId], references: [id])
+  userId    Int
+  perm      String
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  USER
+}

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drive-clone-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drive-clone-postgres
+  template:
+    metadata:
+      labels:
+        app: drive-clone-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          env:
+            - name: POSTGRES_DB
+              value: "drive"
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+          ports:
+            - containerPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+spec:
+  selector:
+    app: drive-clone-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
