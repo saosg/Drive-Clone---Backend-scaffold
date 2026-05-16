@@ -58,6 +58,22 @@ graph LR
   API -.-> User
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Components
 
 - **API (src/)**: Express app in TypeScript handling auth, file metadata, upload APIs (single & multipart), ACLs, sharing, and signed downloads.
