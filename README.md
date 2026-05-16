@@ -37,6 +37,14 @@ npm test
 The backend is a production-lean, scalable TypeScript + Express service providing file metadata, resumable uploads, object storage, background processing, and ACLs. The diagram below shows the main runtime components and integrations.
 
 ```mermaid
+
+
+
+
+
+
+
+
 graph LR
   User[User / Client]
   API[Drive Clone API]
